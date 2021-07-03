@@ -11,17 +11,17 @@ class Note{
     val id : Long
     val title : String
     val description : String
-    val url : String
+    val url : String?
     val createDate : OffsetDateTime
     val lastChangeDate : OffsetDateTime
     val done : Boolean
     val token : String
 
     constructor(id : Long = 0,
-                title : String,
-                description : String,
-                url : String,
-                done : Boolean,
+                title : String = "",
+                description : String = "",
+                url : String? = null,
+                done : Boolean = false,
                 token : String){
         this.id = id
         this.title = title
