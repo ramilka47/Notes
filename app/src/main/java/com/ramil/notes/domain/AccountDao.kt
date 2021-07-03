@@ -9,9 +9,9 @@ import com.ramil.notes.data.Account
 interface AccountDao {
 
     @Insert
-    fun insert(account : Account)
+    suspend fun insert(account : Account)
 
-    @Query("Select * from accounts where login = :login and password = :password")
-    fun getByLoginPassword(login : String, password : String) : Account
+    @Query("Select * from accounts where login = :login")
+    suspend fun getByLoginPassword(login : String) : Account?
 
 }
