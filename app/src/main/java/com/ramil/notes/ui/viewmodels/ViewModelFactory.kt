@@ -2,8 +2,7 @@ package com.ramil.notes.ui.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.github.terrakok.cicerone.Router
-import com.ramil.notes.domain.AppDatabase
+import com.ramil.notes.domain.db.AppDatabase
 import com.ramil.notes.domain.SharedPreferencesDelegate
 import java.lang.Exception
 import javax.inject.Inject

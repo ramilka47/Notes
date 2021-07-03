@@ -3,9 +3,8 @@ package com.ramil.notes.ui.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.github.terrakok.cicerone.Router
 import com.ramil.notes.data.Note
-import com.ramil.notes.domain.NoteDao
+import com.ramil.notes.domain.db.dao.NoteDao
 import com.ramil.notes.domain.SharedPreferencesDelegate
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -27,10 +26,6 @@ class MainViewModel(private val noteDao: NoteDao,
 
     private val noteListLiveData = MutableLiveData<List<Note>>()
     val noteList : LiveData<List<Note>> = noteListLiveData
-
-    init {
-
-    }
 
     override fun onCleared() {
         coroutineIO.cancel()

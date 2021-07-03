@@ -1,4 +1,4 @@
-package com.ramil.notes.domain
+package com.ramil.notes.domain.db.dao
 
 import androidx.room.*
 import com.ramil.notes.data.Note

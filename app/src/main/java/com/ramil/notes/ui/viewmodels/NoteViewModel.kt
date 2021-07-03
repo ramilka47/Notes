@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ramil.notes.data.Note
-import com.ramil.notes.domain.NoteDao
+import com.ramil.notes.domain.db.dao.NoteDao
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -34,6 +34,14 @@ class NoteViewModel(private val noteDao: NoteDao) : ViewModel() {
         }
     }
 
+    fun titleChanged(title : String){
+
+    }
+
+    fun descriptionChanged(description : String){
+
+    }
+
     fun markOfFinal(){
 
     }
@@ -42,15 +50,15 @@ class NoteViewModel(private val noteDao: NoteDao) : ViewModel() {
 
     }
 
-    fun deleteNote(){
-
-    }
-
     fun addImage(){
 
     }
 
     fun deleteImage(){
+
+    }
+
+    fun deleteNote(){
 
     }
 
@@ -64,7 +72,7 @@ class NoteViewModel(private val noteDao: NoteDao) : ViewModel() {
     }
 
     private suspend fun updateNote(note: Note){
-        noteDao.update(note)
+        noteDao.update(Note(note))
     }
 
     private suspend fun getNoteById(id : Long) = noteDao.getById(id)

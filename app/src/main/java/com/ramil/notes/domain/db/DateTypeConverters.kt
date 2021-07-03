@@ -1,4 +1,4 @@
-package com.ramil.notes.domain
+package com.ramil.notes.domain.db
 
 import androidx.room.TypeConverter
 import org.threeten.bp.OffsetDateTime

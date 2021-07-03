@@ -2,7 +2,7 @@ package com.ramil.notes.ui.di.modules
 
 import android.content.Context
 import androidx.room.Room
-import com.ramil.notes.domain.AppDatabase
+import com.ramil.notes.domain.db.AppDatabase
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
