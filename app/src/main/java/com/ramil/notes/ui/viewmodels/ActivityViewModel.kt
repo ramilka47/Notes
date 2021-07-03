@@ -1,18 +1,23 @@
 package com.ramil.notes.ui.viewmodels
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.github.terrakok.cicerone.Router
 import com.ramil.notes.domain.SharedPreferencesDelegate
-import com.ramil.notes.ui.navigation.Screens
 
-class ActivityViewModel(private val sharedPreferencesDelegate: SharedPreferencesDelegate,
-                        private val router : Router) : ViewModel() {
+class ActivityViewModel(private val sharedPreferencesDelegate: SharedPreferencesDelegate) : ViewModel() {
+
+    private val screenMain = MutableLiveData<Boolean>()
+    val main : LiveData<Boolean> = screenMain
+
+    private val screenLogin = MutableLiveData<Boolean>()
+    val login : LiveData<Boolean> = screenLogin
 
     init {
         if (sharedPreferencesDelegate.getCurrentToken() != null){
-            router.navigateTo(Screens.main())
+            screenMain.postValue(true)
         } else {
-            router.navigateTo(Screens.login())
+            screenLogin.postValue(true)
         }
     }
 

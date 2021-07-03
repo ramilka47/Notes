@@ -10,22 +10,21 @@ import javax.inject.Inject
 
 class ViewModelFactory @Inject constructor(
     private val database : AppDatabase,
-    private val sharedPreferencesDelegate: SharedPreferencesDelegate,
-    private val router: Router) : ViewModelProvider.Factory {
+    private val sharedPreferencesDelegate: SharedPreferencesDelegate) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T =
         when(modelClass){
             AuthViewModel::class.java->{
-                AuthViewModel()
+                AuthViewModel(database.accountDao(), sharedPreferencesDelegate)
             }
             NoteViewModel::class.java->{
-                AuthViewModel()
+                NoteViewModel()
             }
             MainViewModel::class.java->{
-                AuthViewModel()
+                MainViewModel(database.noteDao(), sharedPreferencesDelegate)
             }
             ActivityViewModel::class.java->{
-                ActivityViewModel(sharedPreferencesDelegate, router)
+                ActivityViewModel(sharedPreferencesDelegate)
             }
             else->{
                 throw Exception()

@@ -10,6 +10,8 @@ import com.ramil.notes.data.Note
 @TypeConverters(DateTypeConverters::class)
 abstract class AppDatabase : RoomDatabase(){
 
+    abstract fun noteDao() : NoteDao
 
+    abstract fun accountDao() : AccountDao
 
 }

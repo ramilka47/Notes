@@ -8,14 +8,13 @@ import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-@Module(includes = [DatabaseModule::class, NavigationModule::class, SharedPreferenceModule::class])
+@Module(includes = [DatabaseModule::class, SharedPreferenceModule::class])
 class ViewModuleFactoryModule {
 
     @Provides
     @Singleton
     fun providesViewModuleFactory(database : AppDatabase,
-                                  sharedPreferencesDelegate: SharedPreferencesDelegate,
-                                  router: Router) : ViewModelFactory =
-        ViewModelFactory(database, sharedPreferencesDelegate, router)
+                                  sharedPreferencesDelegate: SharedPreferencesDelegate) : ViewModelFactory =
+        ViewModelFactory(database, sharedPreferencesDelegate)
 
 }

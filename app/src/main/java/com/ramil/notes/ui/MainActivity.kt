@@ -2,6 +2,7 @@ package com.ramil.notes.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.Observer
 import com.github.terrakok.cicerone.Back
 import com.github.terrakok.cicerone.Forward
 import com.github.terrakok.cicerone.Navigator
@@ -28,6 +29,8 @@ class MainActivity : AppCompatActivity() {
 
     private val viewModel : ActivityViewModel by lazy{
         viewModelFactory.create(ActivityViewModel::class.java)
+    }.apply {
+        subscribe()
     }
 
     init {
@@ -38,6 +41,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        navigator.applyCommands(arrayOf(Forward(Screens.login())))
+    }
+
+    private fun subscribe(){
+        viewModel.main.observe(this, { showMain() })
+        viewModel.login.observe(this, { showLogin() })
+    }
+
+    private fun showMain(){
+        navigator.applyCommands(arrayOf(Forward(Screens.main())))
+    }
+
+    private fun showLogin(){
         navigator.applyCommands(arrayOf(Forward(Screens.login())))
     }
 

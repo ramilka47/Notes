@@ -7,15 +7,15 @@ import com.ramil.notes.data.Note
 interface NoteDao {
 
     @Insert
-    fun insert(note : Note)
+    suspend fun insert(note : Note)
 
     @Delete
-    fun delete(note: Note)
+    suspend fun delete(note: Note)
 
     @Update
-    fun update(note: Note)
+    suspend fun update(note: Note)
 
     @Query("select * from notes where token = :token order by datetime(createDate)")
-    fun getByToken(token : String) : List<Note>
+    suspend fun getByToken(token : String) : List<Note>
 
 }
