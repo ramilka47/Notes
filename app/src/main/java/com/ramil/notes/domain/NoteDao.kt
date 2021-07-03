@@ -15,6 +15,9 @@ interface NoteDao {
     @Update
     suspend fun update(note: Note)
 
+    @Query("select * from notes where id = :id")
+    suspend fun getById(id : Long) : Note?
+
     @Query("select * from notes where token = :token order by datetime(createDate)")
     suspend fun getByToken(token : String) : List<Note>
 

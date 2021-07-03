@@ -18,7 +18,7 @@ class ViewModelFactory @Inject constructor(
                 AuthViewModel(database.accountDao(), sharedPreferencesDelegate)
             }
             NoteViewModel::class.java->{
-                NoteViewModel()
+                NoteViewModel(database.noteDao())
             }
             MainViewModel::class.java->{
                 MainViewModel(database.noteDao(), sharedPreferencesDelegate)
