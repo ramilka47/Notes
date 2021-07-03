@@ -12,4 +12,5 @@ data class Note(@PrimaryKey(autoGenerate = true)
                 val url : String,
                 val createDate : OffsetDateTime,
                 val lastChangeDate : OffsetDateTime,
-                val done : Boolean)
+                val done : Boolean,
+                val token : String)
