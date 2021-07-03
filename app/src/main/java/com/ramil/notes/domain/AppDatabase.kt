@@ -9,4 +9,7 @@ import com.ramil.notes.data.Note
 @Database(entities = [Note::class, Account::class], version = 1)
 @TypeConverters(DateTypeConverters::class)
 abstract class AppDatabase : RoomDatabase(){
+
+
+
 }

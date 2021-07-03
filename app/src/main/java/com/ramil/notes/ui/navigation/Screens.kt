@@ -1,4 +1,4 @@
-package com.ramil.notes.navigation
+package com.ramil.notes.ui.navigation
 
 import android.content.Intent
 import androidx.fragment.app.Fragment
@@ -8,11 +8,11 @@ import com.ramil.notes.ui.MainActivity
 import com.ramil.notes.ui.dialogs.MenuActionsDialog
 import com.ramil.notes.ui.fragments.LoginFragment
 import com.ramil.notes.ui.fragments.NoteFragment
-import com.ramil.notes.ui.fragments.NotesFragment
+import com.ramil.notes.ui.fragments.MainFragment
 
 object Screens {
 
-    fun main() = ActivityScreen{
+    fun activity() = ActivityScreen{
         Intent(it, MainActivity::class.java)
     }
 
@@ -20,8 +20,8 @@ object Screens {
         LoginFragment()
     }
 
-    fun notes() = FragmentScreen{
-        NotesFragment()
+    fun main() = FragmentScreen{
+        MainFragment()
     }
 
     fun note() = FragmentScreen{

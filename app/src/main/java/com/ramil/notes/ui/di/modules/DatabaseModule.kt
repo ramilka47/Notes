@@ -1,8 +1,7 @@
-package com.ramil.notes.di.modules
+package com.ramil.notes.ui.di.modules
 
 import android.content.Context
 import androidx.room.Room
-import com.ramil.notes.domain.DateTypeConverters
 import com.ramil.notes.domain.AppDatabase
 import dagger.Module
 import dagger.Provides

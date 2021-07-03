@@ -1,4 +1,4 @@
-package com.ramil.notes.di.modules
+package com.ramil.notes.ui.di.modules
 
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.NavigatorHolder

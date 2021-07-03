@@ -1,9 +1,9 @@
 package com.ramil.notes
 
 import android.app.Application
-import com.ramil.notes.di.ApplicationComponent
-import com.ramil.notes.di.DaggerApplicationComponent
-import com.ramil.notes.di.modules.ContextModule
+import com.ramil.notes.ui.di.ApplicationComponent
+import com.ramil.notes.ui.di.DaggerApplicationComponent
+import com.ramil.notes.ui.di.modules.ContextModule
 
 class Application : Application() {
 

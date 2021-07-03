@@ -1,4 +1,4 @@
-package com.ramil.notes.di.modules
+package com.ramil.notes.ui.di.modules
 
 import android.content.Context
 import com.ramil.notes.Application
