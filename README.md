@@ -12,3 +12,5 @@
 7. Добавить описание заметки
 8. Добавить картинку
 9. Удалить картинку
+
+mvvm, dagger2, room, cicerone, glide, threetenbp
