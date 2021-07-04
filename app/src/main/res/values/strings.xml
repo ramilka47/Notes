@@ -14,4 +14,10 @@
     <string name="login">Логин</string>
     <string name="password">Пароль</string>
     <string name="enter">Войти</string>
+    <string name="newNotes">Новые заметки</string>
+    <string name="doneNotes">Завершенные</string>
+    <string name="onEmptyList">Добавить запись</string>
+    <string name="title">Название</string>
+    <string name="description">Описание</string>
+    <string name="newNote">Новая запись</string>
 </resources>

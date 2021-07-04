@@ -6,9 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.ramil.notes.data.entity.Note
 import com.ramil.notes.domain.db.dao.NoteDao
 import com.ramil.notes.domain.SharedPreferencesDelegate
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.cancel
+import kotlinx.coroutines.*
 import java.lang.RuntimeException
 
 class MainViewModel(private val noteDao: NoteDao,
@@ -27,11 +25,41 @@ class MainViewModel(private val noteDao: NoteDao,
     private val noteListLiveData = MutableLiveData<List<Note>>()
     val noteList : LiveData<List<Note>> = noteListLiveData
 
+    private val doneListLiveData = MutableLiveData<List<Note>>()
+    val doneList : LiveData<List<Note>> = doneListLiveData
+
+    init {
+        getNotes()
+    }
+
+    fun getNotes(){
+        coroutineIO.launch {
+            loadingLiveData.postValue(true)
+            delay(2000)
+            val open = getNotesOpen()
+            val done = getNotesDone()
+
+            if (open.isEmpty() && done.isEmpty()){
+                emptyListLiveData.postValueWithResetLoading(true)
+                return@launch
+            }
+
+            noteListLiveData.postValueWithResetLoading(open)
+            doneListLiveData.postValueWithResetLoading(done)
+        }
+    }
+
     override fun onCleared() {
         coroutineIO.cancel()
         super.onCleared()
     }
 
-    private suspend fun getNotes() = noteDao.getByToken(token)
+    private suspend fun getNotesDone() = noteDao.getByToken(token)
 
+    private suspend fun getNotesOpen() = noteDao.getByToken(token)
+
+    private fun <T> MutableLiveData<T>.postValueWithResetLoading(t : T){
+        loadingLiveData.postValue(false)
+        this.postValue(t)
+    }
 }

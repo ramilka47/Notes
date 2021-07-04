@@ -32,6 +32,10 @@ class AuthViewModel(private val accountDao: AccountDao,
     private val uncorrectedPasswordLiveData = MutableLiveData<Boolean>()
     val uncorrectedPassword : LiveData<Boolean> = uncorrectedPasswordLiveData
 
+    init {
+        sharedPreferencesDelegate.clearToken()
+    }
+
     fun auth(login : String, password: String){
         authJob?.cancel()
         if (login.length < 5){

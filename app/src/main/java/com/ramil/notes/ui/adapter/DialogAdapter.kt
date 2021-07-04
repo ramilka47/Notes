@@ -20,7 +20,7 @@ class DialogAdapter(private val actions : Array<Action>,
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActionHolder =
-        ActionHolder(layoutInflater.inflate(R.layout.item__action, parent, false))
+        ActionHolder(layoutInflater.inflate(R.layout.item_action, parent, false))
 
     inner class ActionHolder(view : View) : RecyclerView.ViewHolder(view) {
 

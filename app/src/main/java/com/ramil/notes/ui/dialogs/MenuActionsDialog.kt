@@ -27,6 +27,7 @@ class MenuActionsDialog(private val array: Array<Action>) : DialogFragment() {
     private val adapter by lazy {
         DialogAdapter(array, LayoutInflater.from(requireContext())) {result_code->
             targetFragment?.onActivityResult(REQUEST_CODE, result_code, null)
+            dismiss()
         }
     }
 

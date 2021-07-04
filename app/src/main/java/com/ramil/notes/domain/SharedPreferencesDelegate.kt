@@ -12,4 +12,6 @@ class SharedPreferencesDelegate(private val sharedPreferences : SharedPreference
 
     fun setToken(token : String) = sharedPreferences.edit().putString(TOKEN, token).commit()
 
+    fun clearToken() = sharedPreferences.edit().clear().commit()
+
 }
