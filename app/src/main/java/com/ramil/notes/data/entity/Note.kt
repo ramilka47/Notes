@@ -22,13 +22,15 @@ class Note{
                 description : String = "",
                 url : String? = null,
                 done : Boolean = false,
+                createDate : OffsetDateTime = OffsetDateTime.now(),
+                lastChangeDate : OffsetDateTime = OffsetDateTime.now(),
                 token : String){
         this.id = id
         this.title = title
         this.description = description
         this.url = url
-        this.createDate = OffsetDateTime.now()
-        this.lastChangeDate = OffsetDateTime.now()
+        this.createDate = createDate
+        this.lastChangeDate = lastChangeDate
         this.done = done
         this.token = token
     }

@@ -11,7 +11,7 @@ import com.ramil.notes.data.Action
 
 class DialogAdapter(private val actions : Array<Action>,
                     private val layoutInflater: LayoutInflater,
-                    private val action : (Int)->Unit) : RecyclerView.Adapter<DialogAdapter.ActionHolder>(){
+                    private val actionOnResult : (Int)->Unit) : RecyclerView.Adapter<DialogAdapter.ActionHolder>(){
 
     override fun getItemCount(): Int = actions.size
 
@@ -33,7 +33,7 @@ class DialogAdapter(private val actions : Array<Action>,
                 text = findViewById(R.id.menu_text)
                 this.setOnClickListener {
                     actions[adapterPosition].action {
-                        action(it)
+                        actionOnResult(it)
                     }
                 }
             }

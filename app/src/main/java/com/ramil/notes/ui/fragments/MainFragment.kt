@@ -17,9 +17,9 @@ class MainFragment : Fragment() {
     lateinit var viewModelFactory: ViewModelFactory
 
     private val viewModel by lazy {
-        viewModelFactory.create(MainViewModel::class.java)
-    }.apply {
-        subscribe()
+        viewModelFactory.create(MainViewModel::class.java).apply {
+            subscribe()
+        }
     }
 
     init {

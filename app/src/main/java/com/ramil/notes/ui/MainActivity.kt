@@ -29,8 +29,6 @@ class MainActivity : AppCompatActivity() {
 
     private val viewModel : ActivityViewModel by lazy{
         viewModelFactory.create(ActivityViewModel::class.java)
-    }.apply {
-        subscribe()
     }
 
     init {
@@ -40,8 +38,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        navigator.applyCommands(arrayOf(Forward(Screens.login())))
+        subscribe()
     }
 
     private fun subscribe(){

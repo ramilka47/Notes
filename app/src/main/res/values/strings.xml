@@ -7,4 +7,11 @@
     <string name="ClearMarkOfFinal">Убрать из завершенных</string>
     <string name="AddImage">Добавить картинку</string>
     <string name="DeleteImage">Убрать картинку</string>
+    <string name="welcome">Добро пожаловать %s</string>
+    <string name="badPassword">Неправильный пароль</string>
+    <string name="uncorrectedLogin">Слишком маленькое имя</string>
+    <string name="uncorrectedPassword">Слишком маленький пароль</string>
+    <string name="login">Логин</string>
+    <string name="password">Пароль</string>
+    <string name="enter">Войти</string>
 </resources>

@@ -11,7 +11,7 @@ import kotlinx.coroutines.*
 class AuthViewModel(private val accountDao: AccountDao,
                     private val sharedPreferencesDelegate: SharedPreferencesDelegate) : ViewModel() {
 
-    private var auth : Job? = null
+    private var authJob : Job? = null
     private val coroutineIO = CoroutineScope(Dispatchers.IO)
 
     private val badPasswordLiveData = MutableLiveData<Boolean>()
@@ -23,9 +23,29 @@ class AuthViewModel(private val accountDao: AccountDao,
     private val newAccountLiveData = MutableLiveData<String>()
     val newAccount : LiveData<String> = newAccountLiveData
 
+    private val loadingLiveData = MutableLiveData<Boolean>()
+    val loading : LiveData<Boolean> = loadingLiveData
+
+    private val uncorrectedLoginLiveData = MutableLiveData<Boolean>()
+    val uncorrectedLogin : LiveData<Boolean> = uncorrectedLoginLiveData
+
+    private val uncorrectedPasswordLiveData = MutableLiveData<Boolean>()
+    val uncorrectedPassword : LiveData<Boolean> = uncorrectedPasswordLiveData
+
     fun auth(login : String, password: String){
-        auth?.cancel()
-        auth = coroutineIO.launch {
+        authJob?.cancel()
+        if (login.length < 5){
+            uncorrectedLoginLiveData.postValue(true)
+            return
+        }
+        if (password.length < 5){
+            uncorrectedPasswordLiveData.postValue(true)
+            return
+        }
+
+        authJob = coroutineIO.launch {
+            loadingLiveData.postValue(true)
+            delay(2000)
             val account = checkAccount(login)
             if (account == null){
                 saveAccount(login, password)
@@ -35,7 +55,7 @@ class AuthViewModel(private val accountDao: AccountDao,
                     sharedPreferencesDelegate.setToken(account.token)
                     validateLiveData.postValue(true)
                 } else {
-                    badPasswordLiveData.postValue(true)
+                    badPasswordLiveData.postValueWithResetLoading(true)
                 }
             }
         }
@@ -63,5 +83,10 @@ class AuthViewModel(private val accountDao: AccountDao,
 
     private fun generateToken(login: String, password: String) : String{
         return login.plus(password)
+    }
+
+    private fun <T> MutableLiveData<T>.postValueWithResetLoading(t : T){
+        loadingLiveData.postValue(false)
+        this.postValue(t)
     }
 }
