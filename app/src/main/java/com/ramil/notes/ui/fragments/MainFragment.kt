@@ -86,6 +86,7 @@ class MainFragment : Fragment() {
         }
 
         subscribe()
+        viewModel.getNotes()
     }
 
     private fun subscribe(){
@@ -101,9 +102,11 @@ class MainFragment : Fragment() {
         })
         viewModel.noteList.observe(viewLifecycleOwner, {
             adapter.setOpenList(it)
+            recyclerView.adapter?.notifyDataSetChanged()
         })
         viewModel.doneList.observe(viewLifecycleOwner, {
             adapter.setDoneList(it)
+            recyclerView.adapter?.notifyDataSetChanged()
         })
     }
 

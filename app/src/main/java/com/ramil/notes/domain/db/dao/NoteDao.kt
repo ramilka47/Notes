@@ -19,10 +19,10 @@ interface NoteDao {
     suspend fun getById(id : Long) : Note?
 
     @Query("select * from notes where token = :token order by datetime(createDate)")
-    suspend fun getByTokenDone(token : String) : List<Note>
+    suspend fun getByToken(token : String) : List<Note>
 
     @Query("select * from notes where token = :token and done = 1 order by datetime(createDate)")
-    suspend fun getByToken(token : String) : List<Note>
+    suspend fun getByTokenDone(token : String) : List<Note>
 
     @Query("select * from notes where token = :token and done = 0 order by datetime(createDate)")
     suspend fun getByTokenOpen(token : String) : List<Note>

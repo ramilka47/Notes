@@ -17,8 +17,8 @@ class NoteViewModel(private val noteDao: NoteDao,
 
     private var currentNote : Note? = null
 
-    private val addedLiveData = MutableLiveData<Boolean>()
-    val added : LiveData<Boolean> = addedLiveData
+    private val doneLiveData = MutableLiveData<Boolean>()
+    val done : LiveData<Boolean> = doneLiveData
 
     private val markOfAcceptChangedLiveData = MutableLiveData<Boolean>()
     val markOfAcceptChanged : LiveData<Boolean> = markOfAcceptChangedLiveData
@@ -31,7 +31,6 @@ class NoteViewModel(private val noteDao: NoteDao,
 
     private val arrayOfActionLiveData = MutableLiveData<Array<Action>>()
     val arrayOfAction : LiveData<Array<Action>> = arrayOfActionLiveData
-
 
     fun getNote(id : Long?){
         coroutineIO.launch {
@@ -59,20 +58,20 @@ class NoteViewModel(private val noteDao: NoteDao,
     }
 
     private fun updateArrayOfAction(){
-        arrayOfActionLiveData.postValue(
-            arrayOf(
-                Action.DeleteNote,
-                if (currentNote?.url == null){
-                    Action.AddImage
-                } else
-                    Action.DeleteImage,
-                if (currentNote?.done == true){
-                    Action.MarkOfFinal
-                } else {
-                    Action.ClearMarkOfFinal
-                }
-            )
-        )
+        val list = mutableListOf(
+            if (currentNote?.url == null){
+                Action.AddImage
+            } else
+                Action.DeleteImage,
+            if (currentNote?.done == true){
+                Action.ClearMarkOfFinal
+            } else {
+                Action.MarkOfFinal
+            })
+        if (currentNote?.id != 0L){
+            list.add(Action.DeleteNote)
+        }
+        arrayOfActionLiveData.postValue(list.toTypedArray())
     }
 
     fun acceptChanged(){
@@ -126,7 +125,10 @@ class NoteViewModel(private val noteDao: NoteDao,
     }
 
     fun deleteNote(){
-
+        coroutineIO.launch {
+            noteDao.delete(currentNote ?: return@launch)
+            doneLiveData.postValue(true)
+        }
     }
 
     override fun onCleared() {
@@ -134,13 +136,12 @@ class NoteViewModel(private val noteDao: NoteDao,
         coroutineIO.cancel()
     }
 
-    private suspend fun addNote(note : Note){
-        noteDao.insert(note)
-    }
-
     private suspend fun updateNote(note: Note){
-        noteDao.update(Note(note))
-        addedLiveData.postValue(true)
+        if (note.id != 0L)
+            noteDao.update(Note(note))
+        else
+            noteDao.insert(note)
+        doneLiveData.postValue(true)
     }
 
     private suspend fun getNoteById(id : Long) = noteDao.getById(id)

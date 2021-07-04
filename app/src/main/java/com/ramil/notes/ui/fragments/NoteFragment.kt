@@ -2,6 +2,8 @@ package com.ramil.notes.ui.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,14 +15,17 @@ import com.github.terrakok.cicerone.Router
 import com.ramil.notes.Application
 import com.ramil.notes.R
 import com.ramil.notes.data.Action
-import com.ramil.notes.data.entity.Note
 import com.ramil.notes.ui.dialogs.MenuActionsDialog
-import com.ramil.notes.ui.viewmodels.MainViewModel
 import com.ramil.notes.ui.viewmodels.NoteViewModel
 import com.ramil.notes.ui.viewmodels.ViewModelFactory
 import javax.inject.Inject
 
+
 class NoteFragment : Fragment() {
+
+    companion object{
+        private const val PICK_IMAGE_AVATAR = 12
+    }
 
     @Inject
     lateinit var router: Router
@@ -60,6 +65,14 @@ class NoteFragment : Fragment() {
             title = findViewById(R.id.title_edit)
             description = findViewById(R.id.description_edit)
 
+            title.afterTextChanged {
+                viewModel.titleChanged(it)
+            }
+
+            description.afterTextChanged {
+                viewModel.descriptionChanged(it)
+            }
+
             back.setOnClickListener {
                 router.exit()
             }
@@ -74,15 +87,15 @@ class NoteFragment : Fragment() {
         }
 
         subscribe()
-        viewModel.getNote(savedInstanceState?.getLong("ID"))
+        viewModel.getNote(arguments?.getLong("ID"))
     }
 
     private fun subscribe(){
-        viewModel.added.observe(viewLifecycleOwner, {
+        viewModel.done.observe(viewLifecycleOwner, {
             router.exit()
         })
         viewModel.markOfAcceptChanged.observe(viewLifecycleOwner, {
-            router.exit()
+            accept.visibility = View.VISIBLE
         })
         viewModel.doseNotNote.observe(viewLifecycleOwner, {
             Toast.makeText(requireContext(), getString(R.string.newNote), Toast.LENGTH_SHORT).show()
@@ -104,7 +117,13 @@ class NoteFragment : Fragment() {
                     viewModel.deleteNote()
                 }
                 Action.ADD_IMAGE->{
-
+                    val intent = Intent()
+                    intent.type = "image/*"
+                    intent.action = Intent.ACTION_PICK
+                    startActivityForResult(
+                        Intent.createChooser(intent, "Select Picture"),
+                        PICK_IMAGE_AVATAR
+                    )
                 }
                 Action.DELETE_IMAGE->{
                     viewModel.deleteImage()
@@ -117,6 +136,27 @@ class NoteFragment : Fragment() {
                 }
             }
         }
+
+        if (requestCode == PICK_IMAGE_AVATAR && data != null){
+            val selectedImage = data.data
+            selectedImage?.let {
+                viewModel.addImage(it.toString())
+            }
+        }
+    }
+
+    fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit){
+        this.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+                afterTextChanged.invoke(p0.toString())
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+        })
     }
 
 }

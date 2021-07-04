@@ -35,7 +35,6 @@ class MainViewModel(private val noteDao: NoteDao,
     fun getNotes(){
         coroutineIO.launch {
             loadingLiveData.postValue(true)
-            delay(2000)
             val open = getNotesOpen()
             val done = getNotesDone()
 
@@ -54,9 +53,9 @@ class MainViewModel(private val noteDao: NoteDao,
         super.onCleared()
     }
 
-    private suspend fun getNotesDone() = noteDao.getByToken(token)
+    private suspend fun getNotesDone() = noteDao.getByTokenDone(token)
 
-    private suspend fun getNotesOpen() = noteDao.getByToken(token)
+    private suspend fun getNotesOpen() = noteDao.getByTokenOpen(token)
 
     private fun <T> MutableLiveData<T>.postValueWithResetLoading(t : T){
         loadingLiveData.postValue(false)

@@ -47,7 +47,7 @@ class NotesAdapter(private val layoutInflater: LayoutInflater,
     override fun onBindViewHolder(holder: Holder, position: Int) {
         when(holder){
             is TitleHolder->{
-                if (position == 1)
+                if (position == 0)
                     holder.bind(holder.itemView.context.getString(R.string.newNotes))
                 else
                     holder.bind(holder.itemView.context.getString(R.string.doneNotes))
@@ -72,7 +72,7 @@ class NotesAdapter(private val layoutInflater: LayoutInflater,
         }
 
     override fun getItemViewType(position: Int): Int {
-        return if (position == 1 || position == (openList.size + 2)){
+        return if (position == 0 || position == (openList.size + 1)){
             VIEW_TYPE_TITLE
         } else {
             VIEW_TYPE_NOTE
@@ -83,8 +83,8 @@ class NotesAdapter(private val layoutInflater: LayoutInflater,
         return if (openList.isEmpty()){
             doneList[position - 1]
         } else {
-            if (position >= openList.size) {
-                doneList[position - 2]
+            if (position - 1 >= openList.size) {
+                doneList[position - openList.size - 2]
             } else {
                 openList[position - 1]
             }
