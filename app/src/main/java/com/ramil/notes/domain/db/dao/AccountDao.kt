@@ -3,7 +3,7 @@ package com.ramil.notes.domain.db.dao
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.ramil.notes.data.Account
+import com.ramil.notes.data.entity.Account
 
 @Dao
 interface AccountDao {

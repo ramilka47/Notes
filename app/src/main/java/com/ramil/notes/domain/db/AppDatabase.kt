@@ -3,8 +3,8 @@ package com.ramil.notes.domain.db
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.ramil.notes.data.Account
-import com.ramil.notes.data.Note
+import com.ramil.notes.data.entity.Account
+import com.ramil.notes.data.entity.Note
 import com.ramil.notes.domain.db.dao.AccountDao
 import com.ramil.notes.domain.db.dao.NoteDao
 

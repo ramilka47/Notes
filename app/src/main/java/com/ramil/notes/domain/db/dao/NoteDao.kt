@@ -1,7 +1,7 @@
 package com.ramil.notes.domain.db.dao
 
 import androidx.room.*
-import com.ramil.notes.data.Note
+import com.ramil.notes.data.entity.Note
 
 @Dao
 interface NoteDao {

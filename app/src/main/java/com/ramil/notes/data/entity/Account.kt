@@ -1,4 +1,4 @@
-package com.ramil.notes.data
+package com.ramil.notes.data.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

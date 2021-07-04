@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Notes</string>
+    <string name="AddNote">Добавить заметку</string>
+    <string name="DeleteNote">Удалить заметку</string>
+    <string name="Exit">Выйти</string>
+    <string name="MarkOfFinal">Добавить в завершенные</string>
+    <string name="ClearMarkOfFinal">Убрать из завершенных</string>
+    <string name="AddImage">Добавить картинку</string>
+    <string name="DeleteImage">Убрать картинку</string>
 </resources>

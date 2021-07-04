@@ -3,7 +3,7 @@ package com.ramil.notes.ui.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.ramil.notes.data.Note
+import com.ramil.notes.data.entity.Note
 import com.ramil.notes.domain.SharedPreferencesDelegate
 import com.ramil.notes.domain.db.dao.NoteDao
 import kotlinx.coroutines.*
